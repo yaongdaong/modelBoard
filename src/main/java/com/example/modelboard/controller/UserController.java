@@ -3,9 +3,7 @@ package com.example.modelboard.controller;
 import com.example.modelboard.dto.UserDTO;
 import com.example.modelboard.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -27,11 +25,18 @@ public class UserController {
         return "user/join";
     }
 
+
     @PostMapping("/join")
     public String join(UserDTO userDTO) {
         userService.join(userDTO);
-
         return "user/login";
+    }
+
+    @PostMapping("/doubleIdCheck")
+    @ResponseBody
+    public int doubleIdCheck(@RequestParam("username") String username) {
+        int result = userService.doubleIdCheck(username);
+        return result;
     }
 
     @GetMapping("/login")
@@ -49,7 +54,6 @@ public class UserController {
             return "redirect:/login";
         }
     }
-
 
 
 }

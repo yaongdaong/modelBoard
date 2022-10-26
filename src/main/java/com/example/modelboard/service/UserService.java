@@ -6,5 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
     void join(UserDTO userDTO);
+    int doubleIdCheck(String checkUsername);
     UserDTO login(UserDTO userDTO);
 }

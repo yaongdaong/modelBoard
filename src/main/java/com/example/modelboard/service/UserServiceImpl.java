@@ -16,6 +16,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int doubleIdCheck(String checkUsername){
+       int result =  userMapper.doubleIdCheck(checkUsername);
+       return result;
+    }@Override
     public UserDTO login(UserDTO userDTO){
        return userMapper.login(userDTO);
     }

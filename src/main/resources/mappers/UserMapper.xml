@@ -6,9 +6,12 @@
         insert into user
         values (#{username}, #{password})
         ]]></insert>
+    <select id="doubleIdCheck" resultType="int">
+        select count(*) from user where username = #{username}
+    </select>
     <select id="login" resultType="com.example.modelboard.dto.UserDTO">
         select username
         from user
-        where username = #{username}
+        where checkUsername = #{username}
           and password = #{password}</select>
 </mapper>
