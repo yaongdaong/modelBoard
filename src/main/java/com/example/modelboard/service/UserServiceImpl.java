@@ -19,7 +19,10 @@ public class UserServiceImpl implements UserService {
     public int doubleIdCheck(String checkUsername){
        int result =  userMapper.doubleIdCheck(checkUsername);
        return result;
-    }@Override
+    }
+
+
+    @Override
     public UserDTO login(UserDTO userDTO){
        return userMapper.login(userDTO);
     }

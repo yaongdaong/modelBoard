@@ -25,17 +25,26 @@
 <form action="join" method="post">
     <%--아이디 중복 체크--%>
     <div>
-    <input name="username" type="text" oninput="doubleIdCheck()" required placeholder="아이디"><br>
-    <span id="possible" style="display:none; color:blue">사용 가능한 아이디입니다.</span>
-    <span id="impossible" style="display:none; color:red">이미 존재하는 아이디입니다.</span>
+        <input name="username" type="text" oninput="doubleIdCheck()" required placeholder="아이디"><br>
+        <span id="possible" style="display:none; color:blue">사용 가능한 아이디입니다.</span>
+        <span id="impossible" style="display:none; color:red">이미 존재하는 아이디입니다.</span>
     </div>
 
-    <input name="password" type="password" required placeholder="비밀번호"><br>
+    <input name="password" type="password" oninput="passwordReg()" required
+           placeholder="비밀번호, 8자 이상, 숫자, 대문자, 소문자, 특수문자 포함"><br>
+    <span id="reg" style="display:none; color:blue">비밀번호는 8자 이상, 숫자, 대문자, 소문자, 특수문자를 포함해야 합니다.</span>
+        <span id="ok" style="display:none; color:blue">비밀번호 사용가능</span>
+
+    <input name="passwordCheck" type="password" oninput="passwordChk()" required placeholder="비밀번호 확인"><br>
+    <span id="match" style="display:none; color:blue">비밀번호 일치</span>
+    <span id="notMatch" style="display:none; color:red">비밀번호 불일치</span>
+
     <button type="submit">회원가입</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
+    <%--아이디 일치--%>
     function doubleIdCheck() {
         let checkUsername = $('input[name=username]').val();
         $.ajax({
@@ -51,14 +60,38 @@
                 } else {
                     $('#possible').css("display", "none");
                     $('#impossible').css("display", "inline-block");
-                    alert("다시 입력하세요.")
-                    $("#username").val('');
                 }
-            },error : function(error){
-                alert("error:" + error);
             }
         })
+    }
 
+    // 정규식 함수
+    function passwordReg() {
+        let password = $('input[name=password]').val();
+        // 정규식
+        let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+        if (!reg.test(password)) {
+            $('#reg').css("display", "inline-block");
+            $('#ok').css("display", "none");
+        } else {
+            $('#reg').css("display", "none");
+            $('#ok').css("display", "inline-block");
+        }
+    }
+
+    //비밀번호 일치
+    function passwordChk() {
+        let password = $('input[name=password]').val();
+        let passwordChk = $('input[name=passwordCheck]').val();
+        // 앞에 친 비밀번호와 비교하여 일치하면
+        if (password == passwordChk) {
+            $('#match').css("display", "inline-block");
+            $('#notMatch').css("display", "none");
+        } else {
+            $('#match').css("display", "none");
+            $('#notMatch').css("display", "inline-block");
+            $("#passwordChk").val('');
+        }
     }
 </script>
 </body>
