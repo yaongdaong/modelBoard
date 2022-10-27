@@ -22,12 +22,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!--        &lt;!&ndash;jquery&ndash;&gt;-->
+        <!-- 스프링시큐리티 -->
 <!--        <dependency>-->
-<!--            <groupId>org.webjars</groupId>-->
-<!--            <artifactId>jquery</artifactId>-->
-<!--            <version>3.6.1</version>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
 <!--        </dependency>-->
+
         <!-- DB 연동-->
         <dependency>
             <groupId>org.springframework</groupId>

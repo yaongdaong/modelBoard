@@ -56,5 +56,8 @@ public class UserController {
         }
     }
 
-
+    @GetMapping("/admin")
+    public String admin(){
+        return "user/admin";
+    }
 }

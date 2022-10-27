@@ -25,20 +25,19 @@
 <form action="join" method="post">
     <%--아이디 중복 체크--%>
     <div>
-        <input name="username" type="text" oninput="doubleIdCheck()" required placeholder="아이디"><br>
+        <input id="username" name="username" type="text" oninput="doubleIdCheck()" required placeholder="아이디"><br>
         <span id="possible" style="display:none; color:blue">사용 가능한 아이디입니다.</span>
         <span id="impossible" style="display:none; color:red">이미 존재하는 아이디입니다.</span>
     </div>
 
     <input name="password" type="password" oninput="passwordReg()" required
            placeholder="비밀번호, 8자 이상, 숫자, 대문자, 소문자, 특수문자 포함"><br>
-    <span id="reg" style="display:none; color:blue">비밀번호는 8자 이상, 숫자, 대문자, 소문자, 특수문자를 포함해야 합니다.</span>
-        <span id="ok" style="display:none; color:blue">비밀번호 사용가능</span>
+    <span id="reg" style="display:none; color:red">비밀번호는 8자 이상, 숫자, 대문자, 소문자, 특수문자를 포함해야 합니다.</span>
+    <span id="ok" style="display:none; color:blue">비밀번호 사용가능</span>
 
     <input name="passwordCheck" type="password" oninput="passwordChk()" required placeholder="비밀번호 확인"><br>
     <span id="match" style="display:none; color:blue">비밀번호 일치</span>
     <span id="notMatch" style="display:none; color:red">비밀번호 불일치</span>
-
     <button type="submit">회원가입</button>
 </form>
 

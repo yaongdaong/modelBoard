@@ -21,6 +21,10 @@ public class UserServiceImpl implements UserService {
        return result;
     }
 
+    //@Override
+    //public PasswordEncoder passwordEncoder(){
+    //    return this.passwordEncoder();
+    //}
 
     @Override
     public UserDTO login(UserDTO userDTO){

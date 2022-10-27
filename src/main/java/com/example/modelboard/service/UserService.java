@@ -8,5 +8,6 @@ public interface UserService {
     void join(UserDTO userDTO);
     int doubleIdCheck(String checkUsername);
 
+    //public PasswordEncoder passwordEncoder();
     UserDTO login(UserDTO userDTO);
 }
