@@ -10,5 +10,10 @@ public interface BoardService {
 
     void write(BoardDTO boardDTO);
     List<BoardDTO> boardList();
+    BoardDTO read(Long bno);
 
+
+    void updateBoard(BoardDTO boardDTO);
+
+    void deleteBoard(Long bno);
 }

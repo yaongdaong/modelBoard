@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.modelboard.mapper.ReplyMapper">
+
+    <select id="replyList" resultType="com.example.modelboard.dto.ReplyDTO">
+        select reply.rno, reply.bno, reply.reply, reply.replyer, reply.replyDate from reply,board where reply.bno = board.bno and board.bno = #{bno};
+    </select>
+</mapper>

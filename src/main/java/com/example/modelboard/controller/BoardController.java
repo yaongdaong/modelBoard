@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 
@@ -30,11 +32,43 @@ public class BoardController {
 
     @PostMapping("/write")
     public String writeComplete(BoardDTO boardDTO) {
-        System.out.println(boardDTO);
         boardDTO.setRegdate(new Date());
         boardService.write(boardDTO);
         return "redirect:/boardList";
 
     }
 
-}
+    @GetMapping("/read")
+    public String read(Long bno, Model model){
+        BoardDTO boardDTO = boardService.read(bno);
+        model.addAttribute("board",boardDTO);
+        return "/board/read";
+    }
+
+    @GetMapping("/updateBoard")
+    public String updateBoard(Long bno,Model model){
+        BoardDTO boardDTO = boardService.read(bno);
+        model.addAttribute("board",boardDTO);
+        return "/board/boardUpdate";
+    }
+
+
+    @PostMapping("/updateBoard")
+    @ResponseBody
+    public String updateBoard(@RequestParam("bno") Long bno, @RequestParam("title") String title, @RequestParam("content") String content){
+       BoardDTO boardDTO = boardService.read(bno);
+       boardDTO.setTitle(title);
+       boardDTO.setContent(content);
+       boardDTO.setRegdate(new Date());
+       boardService.updateBoard(boardDTO);
+       return "/read?bno="+bno;
+    }
+
+    @PostMapping("/deleteBoard")
+    @ResponseBody
+    public String deleteBoard(@RequestParam("bno")Long bno){
+        boardService.deleteBoard(bno);
+        return "/boardList";
+        }
+    }
+

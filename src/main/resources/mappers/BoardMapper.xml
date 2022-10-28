@@ -9,4 +9,15 @@
     select * from board
     </select>
 
+    <select id="read" resultType="com.example.modelboard.dto.BoardDTO">
+        select * from board where bno=#{bno}
+    </select>
+
+    <update id="updateBoard">
+        update board set title=#{title}, content=#{content}, regdate=#{regdate} where bno=#{bno}
+    </update>
+
+    <delete id="deleteBoard">
+        delete from board where bno=#{bno}
+    </delete>
 </mapper>

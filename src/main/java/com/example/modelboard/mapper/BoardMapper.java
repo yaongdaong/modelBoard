@@ -7,4 +7,9 @@ import java.util.List;
 public interface BoardMapper {
     void write(BoardDTO boardDTO);
     List<BoardDTO> boardList();
+    BoardDTO read(Long bno);
+
+    void updateBoard(BoardDTO boardDTO);
+
+    void deleteBoard(Long bno);
 }
