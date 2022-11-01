@@ -2,7 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.modelboard.mapper.ReplyMapper">
 
+    <insert id="replyWrite">
+        insert into reply values (#{rno},#{bno},#{reply},#{replyer},now())
+    </insert>
+
     <select id="replyList" resultType="com.example.modelboard.dto.ReplyDTO">
-        select reply.rno, reply.bno, reply.reply, reply.replyer, reply.replyDate from reply,board where reply.bno = board.bno and board.bno = #{bno};
+        select reply.* from reply,board where reply.bno = board.bno and board.bno = #{bno} order by rno desc;
     </select>
+
+    <update id="replyModify">
+        update reply set reply=#{reply} where rno=#{rno}
+    </update>
+
+    <delete id="replyDelete">
+        delete from reply where rno=#{rno}
+    </delete>
 </mapper>

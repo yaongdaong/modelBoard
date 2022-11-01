@@ -15,4 +15,21 @@ public class ReplyServiceImpl implements ReplyService{
     public List<ReplyDTO> replyList(int bno) {
         return replyMapper.replyList(bno);
     }
+
+    @Override
+    public void replyWrite(ReplyDTO replyDTO) {
+        replyMapper.replyWrite(replyDTO);
+    }
+
+    @Override
+    public void replyModify(ReplyDTO replyDTO) {
+        replyMapper.replyModify(replyDTO);
+    }
+
+    @Override
+    public void replyDelete(Long rno) {
+        replyMapper.replyDelete(rno);
+    }
+
+
 }

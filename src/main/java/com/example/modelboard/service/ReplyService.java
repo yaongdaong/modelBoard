@@ -8,6 +8,11 @@ import java.util.List;
 @Service
 public interface ReplyService {
 
-
     List<ReplyDTO> replyList(int bno);
+
+    void replyWrite(ReplyDTO replyDTO);
+
+    void replyModify(ReplyDTO replyDTO);
+
+    void replyDelete(Long rno);
 }
