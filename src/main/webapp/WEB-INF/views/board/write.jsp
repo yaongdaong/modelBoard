@@ -14,7 +14,7 @@
 <form action="write" method="post">
     <input name="title" type="text" required placeholder="제목"><br>
     <input name="content" type="text" required placeholder="내용"><br>
-    <input name="writer" type="text" required placeholder="작성자"><br>
+    <input name="writer" type="text" value="${sessionScope.user}" required placeholder="작성자" readonly><br>
     <button type="submit">제출</button>
 </form>
 </body>

@@ -5,6 +5,8 @@ import com.example.modelboard.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
 
@@ -46,14 +48,23 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(UserDTO userDTO) {
+    public String login(UserDTO userDTO, HttpSession session) {
         // UserDTO : db에 저장된 회원 정보, userDTO : 사용자가 입력한 회원 정보
         UserDTO getUser = userService.login(userDTO);
         if (getUser != null) {
+            session.setAttribute("user",userDTO.getUsername());
             return "redirect:/boardList";
         } else {
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        if(session!=null){
+            session.invalidate();
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/admin")

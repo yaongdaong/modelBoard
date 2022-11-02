@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: hrkim
@@ -31,13 +32,14 @@
     </tr>
     </tbody>
 </table>
-<a href="/updateBoard?bno=${board.bno}">업데이트</a>
+<c:if test="${sessionScope.user eq board.writer}">
+    <a href="/updateBoard?bno=${board.bno}">업데이트</a>
+</c:if>
 
 <%--댓글 쓰기--%>
 <div id="replytext">
-
-    <input type="text" name="replyWrite" id="replyWrite" placeholder="댓글을 입력하세요">
-    <input type="text" name="replyer" id="replyer" placeholder="댓글 작성자">
+    <input type="text" name="replyWrite" id="replyWrite" placeholder="댓글을 입력하세요" required>
+    <input type="text" name="replyer" id="replyer" value="${sessionScope.user}" placeholder="댓글 작성자" readonly>
     <button type="button" onclick="replySave()">입력</button>
 </div>
 
@@ -66,7 +68,6 @@
                 innerHTML += '<div id="' + result.rno + '">' + '<strong>' + result.replyer + '</strong>' + '<small>' + result.replyDate + '</small>' + '<p>' + result.reply + '</p>' + '</div>';
                 $("#replyRead").prepend(innerHTML);
                 $("#replyWrite").val('');
-                $("#replyer").val('');
             }
         })
     }
@@ -83,6 +84,7 @@
     // 댓글 읽기
     function replyList() {
         let bno = ${board.bno}; // 상단의 html에서 받아온 값
+        let user = ${sessionScope.user};
         $.ajax({
             url: "/replyList", // controller로 보내는 주소
             type: 'post', // controller로 보내는 방법
@@ -93,9 +95,13 @@
                 // console.log("replyRead : "+result)
                 // const list = result;
                 for (let i = 0; i < result.length; i++) { // 반복문을 돌려서 reply 데이터에 든 값들을 하나씩 불러오겠다.
-                    innerHTML += '<div id="' + result[i].rno + '">' + '<strong>' + result[i].replyer + '</strong>' + '<small>' + result[i].replyDate + '</small>' + '<p>' + result[i].reply + '</p>' +
-                        '<button type="button" onclick="replyModify(' + result[i].rno + ',\'' + result[i].replyer + '\',\'' + result[i].replyDate + '\',\'' + result[i].reply + '\')">수정</button> ' + '</div>' +
-                        '<button type="button" onclick="replyDelete(' + result[i].rno + ')">삭제</button>';
+                    if (user == result[i].replyer) {
+                        innerHTML += '<div id="' + result[i].rno + '">' + '<strong>' + result[i].replyer + '</strong>' + '<small>' + result[i].replyDate + '</small>' + '<p>' + result[i].reply + '</p>' +
+                            '<button type="button" onclick="replyModify(' + result[i].rno + ',\'' + result[i].replyer + '\',\'' + result[i].replyDate + '\',\'' + result[i].reply + '\')">수정</button> ' +
+                            '<button type="button" onclick="replyDelete(' + result[i].rno + ')">삭제</button>' + '</div>';
+                    } else {
+                        innerHTML += '<div id="' + result[i].rno + '">' + '<strong>' + result[i].replyer + '</strong>' + '<small>' + result[i].replyDate + '</small>' + '<p>' + result[i].reply + '</p>' + '</div>';
+                    }
                 }
                 $("#replyRead").html(innerHTML);
             }
@@ -131,7 +137,7 @@
         $.ajax({
             url: "/replyDelete",
             type: "post",
-            data: {"rno":rno},
+            data: {"rno": rno},
             success: function (result) {
                 replyList();
             }

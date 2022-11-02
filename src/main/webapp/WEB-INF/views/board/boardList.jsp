@@ -20,6 +20,7 @@
 <%--            crossorigin="anonymous"></script>--%>
 </head>
 <body>
+<a href="logout">로그아웃</a>
 <div class="container">
     <table class="table table-bordered">
         <thead>
