@@ -1,6 +1,8 @@
 package com.example.modelboard.controller;
 
 import com.example.modelboard.dto.BoardDTO;
+import com.example.modelboard.dto.Criteria;
+import com.example.modelboard.dto.PageDTO;
 import com.example.modelboard.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +23,11 @@ public class BoardController {
 
     // redirect는 url 주소로 가고, return은 jsp 페이지를 띄워준다.
     @GetMapping("/boardList")
-    public String boardList(Model model) {
-        model.addAttribute("boardList", boardService.boardList());
+    public String boardList(Model model,Criteria cri) {
+        int total = boardService.boardList();
+        System.out.println(total);
+        model.addAttribute("boardList", boardService.boardList(cri));
+        model.addAttribute("pageMaker", new PageDTO(cri,total));
         return "board/boardList";
     }
 
@@ -44,7 +49,7 @@ public class BoardController {
     }
 
     @GetMapping("/read")
-    public String read(Long bno, Model model, HttpSession session) {
+    public String read(Long bno, Model model, HttpSession session,@ModelAttribute("cri") Criteria cri) {
         if (session.getAttribute("user") != null) {
             BoardDTO boardDTO = boardService.read(bno);
             model.addAttribute("board", boardDTO);
@@ -55,7 +60,7 @@ public class BoardController {
     }
 
     @GetMapping("/updateBoard")
-    public String updateBoard(Long bno, Model model, HttpSession session) {
+    public String updateBoard(Long bno, Model model, HttpSession session,@ModelAttribute("cri") Criteria cri) {
         if (session.getAttribute("user") != null) {
             BoardDTO boardDTO = boardService.read(bno);
             model.addAttribute("board", boardDTO);

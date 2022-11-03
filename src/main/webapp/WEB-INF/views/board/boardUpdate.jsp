@@ -35,6 +35,12 @@
 <button type="button" onclick="saveBoard()">저장</button>
 <button type="button" onclick="deleteBoard()">삭제</button>
 
+<%--페이징--%>
+<form role="form" action="updateBoard" method="post">
+    <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}"/>">
+    <input type="hidden" name="amount" value="<c:out value="${cri.amount}"/>">
+</form>
+
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
     function saveBoard() {

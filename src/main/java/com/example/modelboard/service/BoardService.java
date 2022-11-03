@@ -1,6 +1,7 @@
 package com.example.modelboard.service;
 
 import com.example.modelboard.dto.BoardDTO;
+import com.example.modelboard.dto.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.List;
 public interface BoardService {
 
     void write(BoardDTO boardDTO);
-    List<BoardDTO> boardList();
+    int boardList();
+    List<BoardDTO> boardList(Criteria cri);
     BoardDTO read(Long bno);
 
 

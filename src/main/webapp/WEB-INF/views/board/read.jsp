@@ -36,6 +36,12 @@
     <a href="/updateBoard?bno=${board.bno}">업데이트</a>
 </c:if>
 
+<%--페이징--%>
+<form id="operForm" action="/updateBoard" method="get">
+    <input type="hidden" id="bno" name="bno" value="<c:out value="${board.bno}"/>">
+    <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}"/>">
+    <input type="hidden" name="amount" value="<c:out value="${cri.amount}"/>">
+</form>
 <%--댓글 쓰기--%>
 <div id="replytext">
     <input type="text" name="replyWrite" id="replyWrite" placeholder="댓글을 입력하세요" required>

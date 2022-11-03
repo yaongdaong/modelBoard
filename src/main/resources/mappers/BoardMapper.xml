@@ -5,8 +5,8 @@
         insert into board (title, content, writer, regdate) values (#{title},#{content},#{writer},#{regdate})
     </insert>
 
-    <select id="boardList" resultType="com.example.modelboard.dto.BoardDTO">
-    select * from board
+    <select id="boardList" resultType="int">
+    select count(*) from board
     </select>
 
     <select id="read" resultType="com.example.modelboard.dto.BoardDTO">
@@ -20,4 +20,8 @@
     <delete id="deleteBoard">
         delete from board where bno=#{bno}
     </delete>
+
+    <select id="getListWithPaging" resultType="com.example.modelboard.dto.BoardDTO">
+        select * from board where bno>0 order by bno desc limit #{start}, #{end}
+    </select>
 </mapper>

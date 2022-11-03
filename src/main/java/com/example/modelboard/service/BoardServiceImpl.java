@@ -1,6 +1,7 @@
 package com.example.modelboard.service;
 
 import com.example.modelboard.dto.BoardDTO;
+import com.example.modelboard.dto.Criteria;
 import com.example.modelboard.mapper.BoardMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,16 @@ public class BoardServiceImpl implements BoardService{
     public void write(BoardDTO boardDTO){boardMapper.write(boardDTO);}
 
     @Override
-    public List<BoardDTO> boardList(){return boardMapper.boardList();}
+    public int boardList(){return boardMapper.boardList();}
+
+    @Override
+    public List<BoardDTO> boardList(Criteria cri){
+        int pageNum = cri.getPageNum();
+        int amount = cri.getAmount();
+
+        int start = (pageNum -1) * amount;
+        int end = amount;
+        return boardMapper.getListWithPaging(start, end);}
 
     @Override
     public BoardDTO read(Long bno) {return boardMapper.read(bno);}
